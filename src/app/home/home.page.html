@@ -11,11 +11,11 @@
 
 <ion-content>
     <!-- CREATE THE BASIC CARD TO DISPLAY THE SINGLE ARTICLE INCLUDING IMAGE-->
-    <ion-card>
-      <ion-img src="{{articleObject.urlToImage}}"></ion-img>
-      <ion-card-header>{{articleObject.title}}</ion-card-header>
+    <ion-card *ngFor="let article of articles" margin-top>
+      <ion-img src="{{article.urlToImage}}"></ion-img>
+      <ion-card-header>{{article.title}}</ion-card-header>
       <ion-card-content>
-        <p>{{articleObject.description}}</p>
+        <p>{{article.description}}</p>
       </ion-card-content>
     </ion-card>
 </ion-content>

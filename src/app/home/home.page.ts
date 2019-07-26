@@ -20,7 +20,13 @@ export class HomePage {
     "publishedAt": "2019-07-25T01:32:57Z",
     "content": "NASHVILLE, Tenn. Two people are dead and 768 are ill due to a nationwide Salmonella outbreak, the Centers for Disease Control and Prevention reported.\r\nThe CDC recently posted updates regarding  two separate outbreaks one linked to contact with poultry in bac… [+1258 chars]"
   }
-  
+
+  articles:Array<any> = [
+    this.articleObject,
+    this.articleObject,
+    this.articleObject,
+    this.articleObject  
+  ]
   constructor() {}
 
 }
