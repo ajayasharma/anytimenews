@@ -9,9 +9,9 @@ export class NewsApiService {
   private baseUrl: String = environment.baseUrl
   private apiKey: String = environment.apiKey
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  getTopHeadlines() {
-
+  getTopHeadlines(countryCode: String) {
+    return this.http.get(`${this.baseUrl}/top-headlines?country=${countryCode}&apiKey=${this.apiKey}`)
   }
 }
