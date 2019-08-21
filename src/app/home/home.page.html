@@ -15,8 +15,9 @@
       <ion-col *ngFor="let article of articleList" size="12" size-sm="6" size-md="4" size-lg="4">
         <ion-card>
           <ion-img src="{{article.urlToImage}}"></ion-img>
-          <ion-card-header>{{article.title}}</ion-card-header>
-          <ion-card-content><p>{{article.description}}</p></ion-card-content>
+          <ion-card-header>
+            <ion-card-title>{{article.title}}</ion-card-title>
+          </ion-card-header>
         </ion-card>
       </ion-col>
     </ion-row>
