@@ -34,4 +34,11 @@ export class HomePage {
   handleChange() {
     this.getTopHeadlines();
   }
+
+  doRefresh(event) {
+    this.getTopHeadlines();
+    setTimeout(() => {
+      event.target.complete();
+    }, 2000);
+  }
 }
