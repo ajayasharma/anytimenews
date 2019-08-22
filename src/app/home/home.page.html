@@ -22,6 +22,16 @@
           </ion-item>
         </ion-card>
       </ion-col>
+      <ion-col size="12" size-md="6" size-lg="6">
+          <ion-card>
+            <ion-item>
+              <ion-label><ion-icon name="funnel" color="secondary"></ion-icon>Category</ion-label>
+              <ion-select interface="popover" [(ngModel)]="selectedCategory" (ngModelChange)="handleChange()">
+                <ion-select-option *ngFor="let category of categoryList" [value]="category">{{category.name}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-card>
+        </ion-col>
       <ion-col *ngFor="let article of articleList" size="12" size-sm="6" size-md="4" size-lg="4">
         <ion-card>
           <ion-img src="{{article.urlToImage}}"></ion-img>

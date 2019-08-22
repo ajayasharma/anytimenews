@@ -11,7 +11,11 @@ export class NewsApiService {
 
   constructor(private http: HttpClient) { }
 
-  getTopHeadlines(countryCode: String) {
-    return this.http.get(`${this.baseUrl}/top-headlines?country=${countryCode}&apiKey=${this.apiKey}`)
+  getTopHeadlines(countryCode: String, categoryCode: String) {
+    let headlineUrl = `${this.baseUrl}/top-headlines?country=${countryCode}&category=${categoryCode}&apiKey=${this.apiKey}`;
+    if(categoryCode=='all'){
+      headlineUrl = `${this.baseUrl}/top-headlines?country=${countryCode}&apiKey=${this.apiKey}`;
+    }
+    return this.http.get(headlineUrl)
   }
 }
