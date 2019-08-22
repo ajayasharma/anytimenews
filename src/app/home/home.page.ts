@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NewsApiService } from './../providers/news-api.service';
+import { NewsApiService } from '../providers/news-api.service';
+import { COUNTRIES } from '../providers/countries';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -8,6 +9,8 @@ import { NewsApiService } from './../providers/news-api.service';
 export class HomePage {
   articleList: Array<any> = [];
   showPageLoader: boolean = false;
+  countryList: Array<any> = COUNTRIES;
+  selectedCountry = this.countryList[0];
 
   constructor(private newsApiService: NewsApiService) {
     this.getTopHeadlines();
@@ -15,12 +18,16 @@ export class HomePage {
 
   getTopHeadlines(){
     this.showPageLoader = true;
-    this.newsApiService.getTopHeadlines('us').subscribe((result: any) => {
+    this.newsApiService.getTopHeadlines(this.selectedCountry.code).subscribe((result: any) => {
       this.articleList = result.articles.filter(article => article.urlToImage);
       this.showPageLoader = false;
     }, (error) => {
       console.log('error', error);
       this.showPageLoader = false;
     });
+  }
+
+  handleChange() {
+    this.getTopHeadlines();
   }
 }
