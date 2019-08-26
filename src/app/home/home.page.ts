@@ -9,7 +9,7 @@ import { CATEGORIES } from '../providers/categories';
 })
 export class HomePage {
   articleList: Array<any> = [];
-  showPageLoader: boolean = false;
+  showPageLoader = false;
   countryList: Array<any> = COUNTRIES;
   selectedCountry = this.countryList[0];
 
