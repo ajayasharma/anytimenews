@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NewsApiService } from '../providers/news-api.service';
 import { COUNTRIES } from '../providers/countries';
 import { CATEGORIES } from '../providers/categories';
+import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -16,7 +18,7 @@ export class HomePage {
   categoryList: Array<any> = CATEGORIES;
   selectedCategory = this.categoryList[0];
 
-  constructor(private newsApiService: NewsApiService) {
+  constructor(private newsApiService: NewsApiService, private storage: Storage, private router: Router) {
     this.getTopHeadlines();
   }
 
@@ -40,5 +42,10 @@ export class HomePage {
     setTimeout(() => {
       event.target.complete();
     }, 2000);
+  }
+
+  async openDetail(article) {
+    await this.storage.set('currentArticle', article);
+    this.router.navigate(['/detail']);
   }
 }
