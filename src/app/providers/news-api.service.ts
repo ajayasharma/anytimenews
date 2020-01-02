@@ -6,16 +6,21 @@ import { environment } from 'src/environments/environment';
 })
 export class NewsApiService {
   // add the base url and key variable from the environment
-  private baseUrl: String = environment.baseUrl
-  private apiKey: String = environment.apiKey
+  private baseUrl: string = environment.baseUrl
+  private apiKey: string = environment.apiKey
 
   constructor(private http: HttpClient) { }
 
-  getTopHeadlines(countryCode: String, categoryCode: String) {
+  getTopHeadlines(countryCode: string, categoryCode: string) {
     let headlineUrl = `${this.baseUrl}/top-headlines?country=${countryCode}&category=${categoryCode}&apiKey=${this.apiKey}`;
-    if(categoryCode=='all'){
+    if (categoryCode == 'all') {
       headlineUrl = `${this.baseUrl}/top-headlines?country=${countryCode}&apiKey=${this.apiKey}`;
     }
-    return this.http.get(headlineUrl)
+    return this.http.get(headlineUrl);
+  }
+
+  getPublisherTopHeadlines(publisherCode: string) {
+    const headlineUrl = `${this.baseUrl}/top-headlines?sources=${publisherCode}&apiKey=${this.apiKey}`;
+    return this.http.get(headlineUrl);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PUBLISHERS } from '../providers/publishers';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-publishers',
@@ -8,10 +9,19 @@ import { PUBLISHERS } from '../providers/publishers';
 })
 export class PublishersPage implements OnInit {
   publishers: Array<any> = PUBLISHERS;
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
-    console.log(this.publishers);
+  }
+
+  goToPublisherNews(publisher){
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
+        code: publisher.id,
+        name: publisher.name
+      }
+    }
+    this.router.navigate(['/publisher-news'], navigationExtras);
   }
 
 }

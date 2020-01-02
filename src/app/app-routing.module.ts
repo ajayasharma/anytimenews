@@ -19,6 +19,10 @@ const routes: Routes = [
   {
     path: 'publishers',
     loadChildren: './publishers/publishers.module#PublishersPageModule'
+  },
+  {
+    path: 'publisher-news',
+    loadChildren: './publisher-news/publisher-news.module#PublisherNewsPageModule'
   }
 ];
 
