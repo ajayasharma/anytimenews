@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PUBLISHERS } from '../providers/publishers';
 
 @Component({
   selector: 'app-publishers',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./publishers.page.scss'],
 })
 export class PublishersPage implements OnInit {
-
+  publishers: Array<any> = PUBLISHERS;
   constructor() { }
 
   ngOnInit() {
+    console.log(this.publishers);
   }
 
 }
