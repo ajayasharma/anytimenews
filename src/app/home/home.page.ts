@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NewsApiService } from '../providers/news-api.service';
 import { COUNTRIES } from '../providers/countries';
 import { CATEGORIES } from '../providers/categories';
+import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -16,11 +18,11 @@ export class HomePage {
   categoryList: Array<any> = CATEGORIES;
   selectedCategory = this.categoryList[0];
 
-  constructor(private newsApiService: NewsApiService) {
+  constructor(private newsApiService: NewsApiService, private router: Router, private storage: Storage) {
     this.getTopHeadlines();
   }
 
-  getTopHeadlines(){
+  getTopHeadlines() {
     this.showPageLoader = true;
     this.newsApiService.getTopHeadlines(this.selectedCountry.code, this.selectedCategory.id).subscribe((result: any) => {
       this.articleList = result.articles.filter(article => article.urlToImage);
@@ -33,6 +35,11 @@ export class HomePage {
 
   handleChange() {
     this.getTopHeadlines();
+  }
+
+  async openNewsDetail(article) {
+    await this.storage.set('currentArticle', article);
+    this.router.navigate(['/news-detail']);
   }
 
   doRefresh(event) {

@@ -1,5 +1,7 @@
 {
   "name": "anytimenews",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
