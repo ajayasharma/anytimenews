@@ -19,6 +19,11 @@ export class AppComponent {
       title: 'Publishers',
       url: '/publishers',
       icon: 'book'
+    },
+    {
+      title: 'Saved News',
+      url: '/saved-news',
+      icon: 'bookmark'
     }
   ];
 

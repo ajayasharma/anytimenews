@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Saved Articles</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col *ngFor="let article of articleList" size="12" size-sm="6" size-md="4" size-lg="4">
+        <ion-card>
+          <ion-img src="{{article.urlToImage}}"></ion-img>
+          <ion-card-header>
+            <ion-card-title>{{article.title}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-row>
+              <ion-col>
+                <ion-button expand="block" fill="outline" (click)="removeArticle(article.url)">
+                  <ion-icon name="trash" color="danger"></ion-icon>
+                  Remove
+                </ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button color="secondary" expand="block" (click)="openDetail(article)">
+                  <ion-icon name="eye" color="light"></ion-icon>
+                  View Detail
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col *ngIf="!articleList.length">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              No Saved Articles Found
+            </ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-spinner name="crescent" color="success" class="page-loader" *ngIf="showPageLoader"></ion-spinner>
+  </ion-grid>
+</ion-content>

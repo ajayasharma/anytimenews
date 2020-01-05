@@ -23,6 +23,10 @@ const routes: Routes = [
   {
     path: 'publisher-news',
     loadChildren: './publisher-news/publisher-news.module#PublisherNewsPageModule'
+  },
+  {
+    path: 'saved-news',
+    loadChildren: './saved-news/saved-news.module#SavedNewsPageModule'
   }
 ];
 
