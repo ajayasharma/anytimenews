@@ -51,12 +51,21 @@ export class HomePage {
 
   async saveArticle(article) {
     // check existing data
-    const result = await this.storage.get('savedArticles');
-    if (result != null) {
-      result.push(article);
-      await this.storage.set('savedArticles', result);
-    } else {
-      await this.storage.set('savedArticles', [article]);
+    try {
+      const result = await this.storage.get('savedArticles');
+      if (result != null) {
+        // before pushing will check if result has the article or not
+        const existingArticleList = result.filter(item => item.url == article.url);
+        if (existingArticleList.length) {
+          throw new Error('Oops! article already saved');
+        }
+        result.push(article);
+        await this.storage.set('savedArticles', result);
+      } else {
+        await this.storage.set('savedArticles', [article]);
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   }
 }
