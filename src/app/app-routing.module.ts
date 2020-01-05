@@ -27,6 +27,10 @@ const routes: Routes = [
   {
     path: 'saved-news',
     loadChildren: './saved-news/saved-news.module#SavedNewsPageModule'
+  },
+  {
+    path: 'login',
+    loadChildren: './login/login.module#LoginPageModule'
   }
 ];
 
