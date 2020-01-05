@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NewsApiService } from '../providers/news-api.service';
 import { Storage } from '@ionic/storage';
+import { HelperService } from '../providers/helper.service';
 
 @Component({
   selector: 'app-publisher-news',
@@ -14,10 +15,11 @@ export class PublisherNewsPage implements OnInit {
   publisherName = '';
 
   constructor(private activatedRoute: ActivatedRoute, private newsApiService: NewsApiService,
-              private storage: Storage, private router: Router) {
+              private storage: Storage, private router: Router,
+              private helperService: HelperService) {
     this.activatedRoute.queryParams.subscribe(result => {
       console.log('query params => ', result);
-      if(result.code && result.name){
+      if (result.code && result.name) {
         this.getPublisherTopHeadlines(result.code);
         this.publisherName = result.name;
       }
@@ -27,7 +29,7 @@ export class PublisherNewsPage implements OnInit {
   ngOnInit() {
   }
 
-  getPublisherTopHeadlines(publishercode){
+  getPublisherTopHeadlines(publishercode) {
     this.showPageLoader = true;
     this.newsApiService.getPublisherTopHeadlines(publishercode).subscribe((result: any) => {
       this.articleList = result.articles.filter(article => article.urlToImage);
@@ -45,12 +47,10 @@ export class PublisherNewsPage implements OnInit {
 
   async saveArticle(article) {
     // check existing data
-    const result = await this.storage.get('savedArticles');
-    if (result != null) {
-      result.push(article);
-      await this.storage.set('savedArticles', result);
-    } else {
-      await this.storage.set('savedArticles', [article]);
+    try {
+      await this.helperService.saveArticle(article);
+    } catch (error) {
+      console.log(error.message);
     }
   }
 

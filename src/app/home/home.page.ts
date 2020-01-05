@@ -4,6 +4,7 @@ import { COUNTRIES } from '../providers/countries';
 import { CATEGORIES } from '../providers/categories';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
+import { HelperService } from '../providers/helper.service';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -18,7 +19,8 @@ export class HomePage {
   categoryList: Array<any> = CATEGORIES;
   selectedCategory = this.categoryList[0];
 
-  constructor(private newsApiService: NewsApiService, private storage: Storage, private router: Router) {
+  constructor(private newsApiService: NewsApiService, private storage: Storage,
+              private router: Router, private helperService: HelperService) {
     this.getTopHeadlines();
   }
 
@@ -52,18 +54,7 @@ export class HomePage {
   async saveArticle(article) {
     // check existing data
     try {
-      const result = await this.storage.get('savedArticles');
-      if (result != null) {
-        // before pushing will check if result has the article or not
-        const existingArticleList = result.filter(item => item.url == article.url);
-        if (existingArticleList.length) {
-          throw new Error('Oops! article already saved');
-        }
-        result.push(article);
-        await this.storage.set('savedArticles', result);
-      } else {
-        await this.storage.set('savedArticles', [article]);
-      }
+      await this.helperService.saveArticle(article);
     } catch (error) {
       console.log(error.message);
     }
