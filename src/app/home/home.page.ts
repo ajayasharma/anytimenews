@@ -22,7 +22,7 @@ export class HomePage {
     this.getTopHeadlines();
   }
 
-  getTopHeadlines(){
+  getTopHeadlines() {
     this.showPageLoader = true;
     this.newsApiService.getTopHeadlines(this.selectedCountry.code, this.selectedCategory.id).subscribe((result: any) => {
       this.articleList = result.articles.filter(article => article.urlToImage);
@@ -47,5 +47,16 @@ export class HomePage {
   async openDetail(article) {
     await this.storage.set('currentArticle', article);
     this.router.navigate(['/detail']);
+  }
+
+  async saveArticle(article) {
+    // check existing data
+    const result = await this.storage.get('savedArticles');
+    if (result != null) {
+      result.push(article);
+      await this.storage.set('savedArticles', result);
+    } else {
+      await this.storage.set('savedArticles', [article]);
+    }
   }
 }

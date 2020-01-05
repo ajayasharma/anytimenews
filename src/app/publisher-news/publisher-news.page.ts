@@ -43,4 +43,15 @@ export class PublisherNewsPage implements OnInit {
     this.router.navigate(['/detail']);
   }
 
+  async saveArticle(article) {
+    // check existing data
+    const result = await this.storage.get('savedArticles');
+    if (result != null) {
+      result.push(article);
+      await this.storage.set('savedArticles', result);
+    } else {
+      await this.storage.set('savedArticles', [article]);
+    }
+  }
+
 }
