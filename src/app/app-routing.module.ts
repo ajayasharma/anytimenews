@@ -20,17 +20,26 @@ const routes: Routes = [
   {
     path: 'publishers',
     loadChildren: './publishers/publishers.module#PublishersPageModule',
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {
+      role: 'USER'
+    }
   },
   {
     path: 'publisher-news',
     loadChildren: './publisher-news/publisher-news.module#PublisherNewsPageModule',
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {
+      role: 'USER'
+    }
   },
   {
     path: 'saved-news',
     loadChildren: './saved-news/saved-news.module#SavedNewsPageModule',
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {
+      role: 'ADMIN'
+    }
   },
   {
     path: 'login',
