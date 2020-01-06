@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -18,15 +19,18 @@ const routes: Routes = [
   { path: 'detail', loadChildren: './detail/detail.module#DetailPageModule' },
   {
     path: 'publishers',
-    loadChildren: './publishers/publishers.module#PublishersPageModule'
+    loadChildren: './publishers/publishers.module#PublishersPageModule',
+    canActivate: [AuthGuard]
   },
   {
     path: 'publisher-news',
-    loadChildren: './publisher-news/publisher-news.module#PublisherNewsPageModule'
+    loadChildren: './publisher-news/publisher-news.module#PublisherNewsPageModule',
+    canActivate: [AuthGuard]
   },
   {
     path: 'saved-news',
-    loadChildren: './saved-news/saved-news.module#SavedNewsPageModule'
+    loadChildren: './saved-news/saved-news.module#SavedNewsPageModule',
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
 
 const TOKEN_KEY = 'user-access-token-key';
 
@@ -10,8 +11,21 @@ const TOKEN_KEY = 'user-access-token-key';
 export class AuthService {
   user: Observable<any>;
   authState = new BehaviorSubject(null);
-  constructor(private storage: Storage) {
-    this.user = this.authState.asObservable();
+  constructor(private storage: Storage, private router: Router) {
+    this.loadUser();
+    this.user = this.authState.asObservable().pipe(
+      filter(response => response) //this will return only not null responses 
+    );
+  }
+  // load data initially when user refreshes the page
+  loadUser(){ 
+    this.storage.get('TOKEN_KEY').then( data => {
+      if(data && data.email && data.role) {
+        this.authState.next(data);
+      } else {
+        this.authState.next( { email: null, role: null});
+      }
+    });
   }
 
   signIn(credentials): Observable<any> {
@@ -31,7 +45,8 @@ export class AuthService {
 
   async signOut() {
     await this.storage.set(TOKEN_KEY, null);
-    
+    this.authState.next(null);
+    this.route.navigateUrl('/login');
   }
 
 }
