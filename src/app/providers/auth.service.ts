@@ -14,7 +14,7 @@ export class AuthService {
   constructor(private storage: Storage, private router: Router) {
     this.loadUser();
     this.user = this.authState.asObservable().pipe(
-      filter(response => response) //this will return only not null responses 
+      filter(response => response) //this will return only nu 
     );
   }
   // load data initially when user refreshes the page
