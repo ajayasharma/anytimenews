@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, of } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 
@@ -46,7 +47,7 @@ export class AuthService {
   async signOut() {
     await this.storage.set(TOKEN_KEY, null);
     this.authState.next(null);
-    this.route.navigateUrl('/login');
+    this.router.navigateUrl('/login');
   }
 
 }
